@@ -4,29 +4,60 @@ class CartsController < ApplicationController
     end
 
 
-  def add_item
-    # 🔍 DEBUG: Start of add_item
+  # def add_item
+  #   # 🔍 DEBUG: Start of add_item
 
-    puts "🔍 Received params: #{params.inspect}"
+  #   puts "🔍 Received params: #{params.inspect}"
 
-    Rails.logger.debug "🎯 add_item hit with params: #{params.inspect}"
+  #   Rails.logger.debug "🎯 add_item hit with params: #{params.inspect}"
 
-    @engine = Engine.find(params[:engine_id])
-    quantity = params[:quantity].to_i
+  #   @engine = Engine.find(params[:engine_id])
+  #   quantity = params[:quantity].to_i
 
-    current_item = @cart.line_items.find_by(engine_id: @engine.id)
+  #   current_item = @cart.line_items.find_by(engine_id: @engine.id)
 
-    if current_item
-        current_item.update(quantity: (current_item.quantity).to_i + quantity)
-    else
-        @cart.line_items.create(engine: @engine, quantity: quantity)
-    end
+  #   if current_item
+  #       current_item.update(quantity: (current_item.quantity).to_i + quantity)
+  #   else
+  #       @cart.line_items.create(engine: @engine, quantity: quantity)
+  #   end
 
-    respond_to do |format|
-        format.turbo_stream
-        # format.html { redirect_to request.referer || root_path } # fallback if Turbo fails
-    end
+  #   respond_to do |format|
+  #       format.turbo_stream
+  #       # format.html { redirect_to request.referer || root_path } # fallback if Turbo fails
+  #   end
+  # end
+
+def add_item
+  Rails.logger.debug "🎯 add_item hit with params: #{params.inspect}"
+
+  product = if params[:wheel_id]
+              Wheel.find(params[:wheel_id])
+            elsif params[:engine_id]
+              Engine.find(params[:engine_id])
+            end
+  line_item = @cart.line_items.find_or_initialize_by(product: product)
+  quantity = params[:quantity].to_i
+ 
+  if product.is_a?(Wheel) 
+    quantity = 3 
+    line_item.quantity += quantity
   end
+
+  
+  
+
+  if line_item.save
+    Rails.logger.debug "✅ LineItem saved: #{line_item.inspect}"
+  else
+    Rails.logger.error "❌ LineItem failed: #{line_item.errors.full_messages}"
+  end
+
+  respond_to do |format|
+    format.turbo_stream
+  end
+end
+
 
 
 
@@ -53,13 +84,9 @@ class CartsController < ApplicationController
   
   end
 
-
-
-  def checkout
-    @line_items = @cart.line_items.includes(:engine)
-    @carts = @cart.line_items.includes(:engine)
-  end
-
-
+ def checkout
+    @line_items = @cart.line_items
+    @carts      = @cart.line_items
+ end
   
 end

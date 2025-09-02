@@ -1,0 +1,52 @@
+<div class="content-wrapper">
+  <div class="makes-section">
+    <%#= render "shared/index_engine_filter" %>
+  </div>
+
+  <div class="main-content">
+    <div class="engines">
+      <% if @paginated_items.any? %>
+        <% @paginated_items.each do |wheel| %>
+          <div class="card">
+            <%= link_to wheel_path(wheel) do %>
+              <% if wheel.present? && wheel.photos.any? %>
+                <%= image_tag wheel.photos.first, alt: wheel.name, height: 250, width: 300, class: "engine-image" %>
+              <% else %>
+                <div style="height: 250px; width: 300px; display: flex; align-items: center; justify-content: center; background: #eee;">
+                  <span>Deleted or no photos</span>
+                </div>
+              <% end %>
+            <% end %>
+
+            <div class="card-info">
+              <%= link_to wheel_path(wheel), style: "text-decoration: none;" do %>
+                <h4><%= wheel.name %></h4>
+                <p class="price">Price: <%= number_to_currency(wheel.price) %></p>
+              <% end %>
+              <%= form_with url: cart_add_item_path, method: :post, data: { turbo: true }, class: "flex items-center gap-2" do %>
+                <%= hidden_field_tag :wheel_id, wheel.id %>
+                <%= number_field_tag :quantity, 1, min: 1, class: "w-16 text-center border rounded", style: "display:none;" %>
+                <%= submit_tag "Add to Cart(Set)", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+
+          </div> <!-- closes .card -->
+        <% end %>
+      <% else %>
+        <div style="margin: 30px;">
+          <h1>Search Results</h1>
+          <p>
+            It seems we can't find any engines with name:
+            <strong style="text-decoration: underline; font-size: 1.1rem;">
+              <%= params[:query] %>
+            </strong>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pagination-container">
+      <%= paginate @paginated_items %>
+    </div>
+  </div>
+</div>

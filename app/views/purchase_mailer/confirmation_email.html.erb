@@ -103,9 +103,7 @@
     
     <div class="content">
       <p>Dear Valued Customer,</p>
-      
-      <p>Thank you for your purchase! We have successfully received and processed your order.</p>
-      
+      <p>Thank you for your purchase! We have successfully received and processed your order.</p> 
     <div class="order-summary">
         <h2>Order Summary</h2>
         <ul class="order-details">
@@ -114,7 +112,7 @@
               <ul>
                 <% JSON.parse(@purchase.cart_data).each do |item| %>
                   <li>
-                    <%= item["engine_name"] %> (x<%= item["quantity"] %>) -
+                    <%= item["product_name"] %> (x<%= item["quantity"] %>) -
                     $<%= sprintf('%.2f', item["price"].to_f * item["quantity"].to_i) %>
                   </li>
                 <% end %>

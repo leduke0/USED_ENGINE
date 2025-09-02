@@ -123,13 +123,13 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>🔔 New Order Alert</h1>
-      <p style="margin: 10px 0 0 0; opacity: 0.9;">AutoBidSeller Admin Notification</p>
+      <strong>🔔 New Order Alert</strong>
     </div>
     
     <div class="content">
       <div class="order-alert">
-        <p><strong>🎉 Great news!</strong> A new order has been placed on AutoBidSeller and requires your attention.</p>
+        <strong>AutoBidSeller Admin Notification</strong>
+        <strong>🎉 Great news! A new order has been placed on AutoBidSeller and requires your attention.</strong> 
       </div>
       
         <div class="order-details">
@@ -161,12 +161,11 @@
         <ul>
           <% JSON.parse(@purchase.cart_data).each do |item| %>
             <li>
-              <%= item["engine_name"] %> (x<%= item["quantity"] %>) -
+              <%= item["product_name"] %> (x<%= item["quantity"] %>) -
               $<%= sprintf('%.2f', item["price"].to_f * item["quantity"].to_i) %>
             </li>
           <% end %>
         </ul>
-
       </div>
  
       

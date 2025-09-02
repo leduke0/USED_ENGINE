@@ -1,0 +1,159 @@
+
+
+  .wheel-order-form {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #40005b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .wheel-order-form::before {
+    content: '🛒';
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    border: 2px solid #40005b;
+  }
+
+  .wheel-add-to-cart-btn {
+    background: linear-gradient(135deg, #40005b 0%, #0284c7 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .wheel-add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  }
+
+  .wheel-specifications {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .wheel-spec-header {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    position: relative;
+  }
+
+  .wheel-spec-header::after {
+    content: '⚙️';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+  }
+
+  .wheel-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .wheel-spec-row {
+    transition: background-color 0.2s ease;
+  }
+
+  .wheel-spec-row:hover {
+    background: #f8fafc;
+  }
+
+  .wheel-spec-row:nth-child(even) {
+    background: #f9fafb;
+  }
+
+  .wheel-spec-label {
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    width: 40%;
+    position: relative;
+  }
+
+  .wheel-spec-label::before {
+    content: '●';
+    color: #40005b;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .wheel-spec-value {
+    padding: 1rem 1.5rem;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 500;
+  }
+
+  .wheel-spec-sku {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #92400e;
+  }
+
+  .wheel-quantity-input {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .wheel-product-container {
+      padding: 1rem 0.5rem;
+    }
+
+    .wheel-header-section {
+      padding: 2rem 1.5rem;
+    }
+
+    .wheel-product-title {
+      font-size: 1.75rem;
+    }
+
+    .wheel-price-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .wheel-spec-label,
+    .wheel-spec-value {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+    }
+
+    .wheel-spec-label {
+      background: #f3f4f6;
+      font-size: 0.875rem;
+      padding-bottom: 0.5rem;
+      border-bottom: none;
+    }
+
+    .wheel-spec-value {
+      padding-top: 0.5rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+  }

@@ -1,4 +1,4 @@
-module Carts 
+module Carts
   class PurchasesController < ApplicationController
     before_action :set_cart
     before_action :set_cart_items
@@ -38,11 +38,12 @@ module Carts
     end
     
     def set_cart_items
-      @cart_items = @cart.line_items.includes(:engine)
+      # ✅ use product (polymorphic), not engine
+      @cart_items = @cart.line_items.includes(:product)
     end
     
     def calculate_total
-      @cart_items.sum { |item| item.engine.price * item.quantity }
+      @cart_items.sum { |item| (item.product.try(:price) || 0) * item.quantity }
     end
   
     def purchase_params
@@ -50,11 +51,13 @@ module Carts
     end
     
     def serialize_cart_data
-      @cart.line_items.includes(:engine).map do |item|
+      @cart.line_items.includes(:product).map do |item|
+        product = item.product
         {
-          engine_name: item.engine.title,
+          product_type: product.class.name,
+          product_name: product.try(:name) || product.try(:title),
           quantity: item.quantity,
-          price: item.engine.price
+          price: product.try(:price) || 0
         }
       end.to_json
     end

@@ -56,7 +56,9 @@ Rails.application.routes.draw do
   post "cart/add_item", to: "carts#add_item"
   post "cart/remove/:id", to: "carts#remove_item", as: :cart_remove_item
   get "cart/checkout", to: "carts#checkout"
-
+ 
+  #  routes for the wheels
+  resources :wheels
   # resource :cart, only: [:show] do
   #   post "add_item", to: "carts#add_item"
   #   post "remove_item/:id", to: "carts#remove_item", as: "remove_item"

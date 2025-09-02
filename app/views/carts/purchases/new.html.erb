@@ -6,13 +6,16 @@
       <!-- Show cart summary -->
       <div class="cart-summary">
         <% @cart_items.each do |item| %>
+          <% product = item.product %>
           <div class="cart-item">
-            <%= item.engine.title %> - Qty: <%= item.quantity %>
-            <span>$<%= item.engine.price * item.quantity %></span>
+            <%= product.try(:name) || product.try(:title) %> - Qty: <%= item.quantity %>
+            <span>
+              <%= number_to_currency((product.try(:price) || 0) * item.quantity) %>
+            </span>
           </div>
         <% end %>
         <div class="total">
-          Total: $<%= @cart_items.sum { |item| item.engine.price * item.quantity } %>
+          Total: <%= number_to_currency(@cart_items.sum { |item| (item.product.try(:price) || 0) * item.quantity }) %>
         </div>
       </div>
 
@@ -22,7 +25,6 @@
           <%= form.text_field :billing_address, required: true %>
         </div>
 
-        
         <div class="form-group">
           <%= form.label :email %>
           <%= form.email_field :email, required: true %>
@@ -32,7 +34,6 @@
           <%= form.label :phone %>
           <%= form.telephone_field :phone, required: true %>
         </div>
-        
         
         <div class="form-group">
           <%= form.label :shipping_address %>
@@ -49,7 +50,7 @@
         
         <div class="form-actions">
           <%= form.submit "Complete Order", class: "btn btn-primary" %>
-          <%= button_tag "Cancel", type: "button", class: "btn btn-secondary", 
+          <%= button_tag "Cancel", type: "button", class: "btn btn-primary", 
                          data: { action: "click->checkout#close" } %>
         </div>
       <% end %>

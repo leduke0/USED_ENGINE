@@ -1,0 +1,73 @@
+<%= form_with model: @wheel, local: true, class: "wheel-form" do |f| %>
+  <% if @wheel.errors.any? %>
+    <div class="form-errors">
+      <h2><%= pluralize(@wheel.errors.count, "error") %> prevented saving:</h2>
+      <ul>
+        <% @wheel.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :price %>
+    <%= f.number_field :price, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :bolt_pattern %>
+    <%= f.text_field :bolt_pattern, class: "form-control" %>
+  </div>
+
+  <div class="form-inline">
+    <div class="form-group">
+      <%= f.label :diameter %>
+      <%= f.number_field :diameter, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :width %>
+      <%= f.number_field :width, step: 0.1, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :offset %>
+    <%= f.number_field :offset, class: "form-control" %>
+  </div>
+
+  <div class="form-inline">
+    <div class="form-group">
+      <%= f.label :backspacing %>
+      <%= f.number_field :backspacing, step: 0.01, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :bore %>
+      <%= f.number_field :bore, step: 0.01, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :sku %>
+    <%= f.text_field :sku, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :stock %>
+    <%= f.number_field :stock, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :photos %>
+    <%= f.file_field :photos, multiple: true, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit class: "btn-primary" %>
+  </div>
+<% end %>

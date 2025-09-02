@@ -1,6 +1,4 @@
 class Engine < ApplicationRecord
-  
-
   # handles he slugs for friendly domain
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -18,10 +16,7 @@ class Engine < ApplicationRecord
   #handles associations
   belongs_to :engineable, polymorphic: true
   has_many :engine_orders, dependent: :destroy
-
-  
-
-  
+  has_many :line_items, as: :product
   has_many :carts, through: :line_items
 
   accepts_nested_attributes_for :engineable
