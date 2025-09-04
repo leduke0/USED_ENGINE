@@ -1,0 +1,139 @@
+<div class="bike-contain" data-controller="showcars">
+  <div class="bike-main-content">
+    <div class="bike-main-image">
+      <% if @tire.photos.attached? %>
+        <% @tire.photos.each_with_index do |photo, index| %>
+          <div class="mySlides" data-showcars-target="slide" style="<%= index == 0 ? '' : 'display:none;' %>">
+            <div class="numbertext">
+              <i class="fa-solid fa-camera"></i> <%= index + 1 %>/<%= @tire.photos.count %>
+            </div>
+            <%= cl_image_tag photo.key, alt: @tire.name, class: "main-image" %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <!-- Navigation Buttons -->
+      <div class="slider-nav">
+        <a class="prev" data-action="click->showcars#prev">❮</a>
+        <a class="next" data-action="click->showcars#next">❯</a>
+      </div>
+
+      <!-- tire Gallery -->
+      <div class="bike-gallery">
+        <% if @tire.photos.attached? %>
+          <div class="thumbnails">
+            <% @tire.photos.each_with_index do |photo, index| %>
+            
+              <%= cl_image_tag photo.key,
+                height: 100, width: 100, crop: :fill,
+                class: "thumbnail",
+                alt: @tire.name,
+                data: { showcarsTarget: "thumbnail", action: "click->showcars#selectSlide", index: index + 1 } %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<!-- Order Form Section -->
+  <div class="bike-form">
+    <div class="row m-2">
+      <h2 style="font-weight: 600; font-size: 1.5rem;"><%= @tire.name %></h2>
+      <h2 style="color: blue; font-size: 1.5rem; font-weight: 800;">
+        <%= number_to_currency(@tire.price) %> Each
+      </h2>
+      <h2 style="color: blue; font-size: 0.9rem; font-weight: 200;">
+       set of four: $<%= @tire.price * 4 %>
+      </h2>
+      <span class="summary-value text-green-600 flex items-center gap-2">
+              <i class="fas fa-truck-fast"></i>
+              Free Shipping
+            </span>
+    </div>
+
+
+     <div class="tire-order-form">
+        <%= form_with url: cart_add_item_path, method: :post, data: { turbo: true } do %>
+            <%= hidden_field_tag :tire_id, @tire.id %>
+            <%= number_field_tag :quantity, 1, min: 1 %>
+            <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+
+    <div class="tire-spec-header">
+      Technical Specifications
+    </div>
+    <div style="margin-left: 25px;">
+      <table class="tire-spec-table">
+        <tr>
+          <td><strong>Bolt Pattern:</strong></td>
+          <td><%= @tire.bolt_pattern %></td>
+        </tr>
+        <tr>
+          <td><strong>Diameter:</strong></td>
+          <td><%= @tire.diameter %></td>
+        </tr>
+        <tr>
+          <td><strong>Width:</strong></td>
+          <td><%= @tire.width %></td>
+        </tr>
+        <tr>
+          <td><strong>Offset:</strong></td>
+          <td><%= @tire.offset %></td>
+        </tr>
+        <tr>
+          <td><strong>Backspacing:</strong></td>
+          <td><%= @tire.backspacing %></td>
+        </tr>
+        <tr>
+          <td><strong>Bore:</strong></td>
+          <td><%= @tire.bore %></td>
+        </tr>
+        <tr>
+          <td><strong>Sku:</strong></td>
+          <td><%= @tire.sku %></td>
+        </tr>
+      </table>
+    </div>  
+  
+  </div>
+</div>
+
+<!-- tire Information Section -->
+<div class="bike-details">
+  <div class="popularity-stats">
+    <div class="stats-row">
+      <div class="stats-item">
+        <i class="fa-solid fa-eye"></i>
+        <span><strong>Seen:</strong> <%= rand(30..100) %> times (last 30 days)</span>
+      </div>
+      <div class="stats-item">
+        <i class="fa-solid fa-bookmark"></i>
+        <span><strong>Saved:</strong> by <%= rand(2..10) %> people</span>
+      </div>
+      <div class="stats-item">
+        <i class="fa-solid fa-tags"></i>
+        <span><strong>Price Update:</strong> The price recently decreased by $<%= rand(100..500) %></span>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <div class="actions">
+    <%= link_to "Explore More tires", tires_path, class: "primary-btn" %>
+  </div>
+
+  <div>
+    <%= link_to tires_path, class: "back-link" do %>
+      <i class="fas fa-arrow-left"></i> Back to tires
+    <% end %>
+
+    <% if current_user&.admin? %>
+      <%= link_to edit_tire_path(@tire), class: "btn btn-primary", style: "max-width: 300px;" do %>
+        <i class="fas fa-edit"></i> Edit tire
+      <% end %>
+    <% end %>
+  </div>
+</div>

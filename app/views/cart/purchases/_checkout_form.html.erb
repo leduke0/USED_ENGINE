@@ -14,9 +14,17 @@
       <%= f.text_field :billing_address, placeholder: "Billing Address (or same)", required: true %>
 
       <h4>Payment Method</h4>
-      <%= f.radio_button :payment_method, "card" %> <%= f.label :payment_method_card, "Card Payment" %><br>
-      <%= f.radio_button :payment_method, "bank_transfer" %> <%= f.label :payment_method_bank_transfer, "Bank Transfer" %>
+      <%= f.radio_button :payment_method, "card" %>
+      <%= f.label :payment_method_card, "Credit/Debit Card (Visa, Mastercard, AmEx, Discover)" %><br>
 
+      <%= f.radio_button :payment_method, "paypal" %>
+      <%= f.label :payment_method_paypal, "PayPal" %><br>
+
+      <%= f.radio_button :payment_method, "apple_pay" %>
+      <%= f.label :payment_method_apple_pay, "Apple Pay" %><br>
+
+      <%= f.radio_button :payment_method, "google_pay" %>
+      <%= f.label :payment_method_google_pay, "Google Pay" %><br>
       <div class="checkout-buttons">
         <%= f.submit "Place Order", class: "btn-primary" %>
       </div>

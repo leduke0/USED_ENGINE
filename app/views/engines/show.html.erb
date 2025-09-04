@@ -77,14 +77,34 @@
     </div>
 
     <p style="font-weight: 700; text-align: center;"> PLACE A QUICK ORDER</p>
-      
-      <%= form_with url: cart_add_item_path, method: :post, data: { turbo: true }, class: "flex items-center gap-2" do %>
-        <%= hidden_field_tag :engine_id, @engine.id %>
-        <div class="d-none"><%= number_field_tag :quantity, 1, min: 1, class: "w-16 text-center border rounded" %></div>
-        <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
-      <% end %>
 
-  <div data-controller="form-hide" >
+      <div class="wheel-order-form">
+        <%= form_with url: cart_add_item_path, method: :post, data: { turbo: true }, class: "wheel-form-wrapper" do %>
+          <%= hidden_field_tag :engine_id, @engine.id %>
+          <%= number_field_tag :quantity, 1, min: 1, class: "wheel-quantity-input" %>
+          <%= submit_tag "Add to Cart", class: "wheel-add-to-cart-btn" %>
+        <% end %>
+      </div>
+
+   <div class="popularity-stats">
+    <%# <h2 class="stats-title"><i class="fa-solid fa-phone" style="color: green;"></i> Contact the Dealer (341)223-3974</h2> %>
+    <div class="stats-row">
+      <div class="stats-item">
+        <i class="fa-solid fa-eye"></i>
+        <span><strong>Seen:</strong> <%= rand(30..100) %> times (last 30 days)</span>
+      </div>
+      <div class="stats-item">
+        <i class="fa-solid fa-bookmark"></i>
+        <span><strong>Saved:</strong> by <%= rand(2..10) %> people</span>
+      </div>
+      <div class="stats-item">
+        <i class="fa-solid fa-tags"></i>
+        <span><strong>Price Update:</strong> The price recently decreased by $<%= rand(1000..5000) %></span>
+      </div>
+    </div>
+  </div>
+
+  <div data-controller="form-hide" style="display: none;" >
     <button type="button" class="btn btn-dark" data-action="click->form-hide#toggle">Quick Enquiry</button>
     <div data-form-hide-target="form" class="hide-form">
       <%= simple_form_for [@engine, @order],
@@ -156,23 +176,7 @@
 
 <!-- Bike Information Section -->
 <div class="bike-details">
-  <div class="popularity-stats">
-    <%# <h2 class="stats-title"><i class="fa-solid fa-phone" style="color: green;"></i> Contact the Dealer (341)223-3974</h2> %>
-    <div class="stats-row">
-      <div class="stats-item">
-        <i class="fa-solid fa-eye"></i>
-        <span><strong>Seen:</strong> <%= rand(30..100) %> times (last 30 days)</span>
-      </div>
-      <div class="stats-item">
-        <i class="fa-solid fa-bookmark"></i>
-        <span><strong>Saved:</strong> by <%= rand(2..10) %> people</span>
-      </div>
-      <div class="stats-item">
-        <i class="fa-solid fa-tags"></i>
-        <span><strong>Price Update:</strong> The price recently decreased by $<%= rand(1000..5000) %></span>
-      </div>
-    </div>
-  </div>
+ 
 
   <table class="mt-5">
     <tr>

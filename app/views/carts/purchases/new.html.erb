@@ -41,13 +41,18 @@
         </div>
         
         <div class="form-group">
-          <%= form.label :payment_method %>
-          <%= form.select :payment_method, options_for_select([
-            ['Bank Transfer', 'bank_transfer'],
-            ['Credit Card', 'credit_card']
-          ]), { prompt: 'Select payment method' }, { required: true } %>
+          <%= form.label :payment_method, "Payment Method" %>
+          <%= form.select :payment_method,
+              options_for_select([
+                ['Credit / Debit Card (Visa, Mastercard, AmEx, Discover)', 'credit_card'],
+                ['PayPal', 'paypal'],
+                ['Apple Pay', 'apple_pay'],
+                ['Google Pay', 'google_pay'],
+                ['Bank Transfer (ACH / Wire)', 'bank_transfer']
+              ]),
+              { prompt: 'Select payment method' },
+              { required: true, class: "form-control" } %>
         </div>
-        
         <div class="form-actions">
           <%= form.submit "Complete Order", class: "btn btn-primary" %>
           <%= button_tag "Cancel", type: "button", class: "btn btn-primary", 

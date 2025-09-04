@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'tires/index'
+  get 'tires/show'
+  get 'tires/new'
+  get 'tires/create'
+  get 'tires/edit'
+  get 'tires/update'
+  get 'tires/destroy'
  
   root to: "pages#home"
 
@@ -59,6 +66,7 @@ Rails.application.routes.draw do
  
   #  routes for the wheels
   resources :wheels
+  resources :tires 
   # resource :cart, only: [:show] do
   #   post "add_item", to: "carts#add_item"
   #   post "remove_item/:id", to: "carts#remove_item", as: "remove_item"
