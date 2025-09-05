@@ -44,7 +44,7 @@ require "open-uri"
 # require_relative "seeds/cars_2.rb"
 # require_relative "seeds/wheels_2.rb"
 # require_relative "seeds/wheels.rb"
-require_relative "seeds/tire.rb"
+# require_relative "seeds/tire.rb"
 
 puts "created #{Tire.count} new tires"
 puts "created #{Wheel.count} wheels"
